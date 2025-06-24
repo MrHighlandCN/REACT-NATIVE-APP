@@ -30,22 +30,25 @@ const SigninScreen = () => {
         }
     }
     return (
-        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined} enabled={true}
-            className="flex-1 justify-center items-center bg-white">
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? "padding" : undefined} enabled={true}
+            className="flex-1 justify-center items-center bg-gray">
             <Text className="text-2xl font-bold mb-4">Sign in</Text>
             <TextInput
-                className="w-64 p-3 border border-black rounded mb-3"
+                className="w-64 p-3 border border-black rounded-md text-black-500 rounded mb-3"
                 placeholder="Username"
                 onChangeText={newUsername => setUsername(newUsername)}
+                placeholderTextColor="#808080" 
             />
             <TextInput
-                className="w-64 p-3 border border-black rounded mb-4"
+                className="w-64 p-3 border border-black rounded-md text-black-500 rounded mb-4"
                 placeholder="Password"
                 onChangeText={newPassword => setPassword(newPassword)}
                 secureTextEntry
+                placeholderTextColor="#808080" 
+
             />
-            <View className="w-64">
-                <Button title="Sign in" onPress={handleSignin} />
+            <View className="w-64 bg-[#316ff6] rounded-md">
+                <Button title="Sign in" onPress={handleSignin} color="#ffffff"/>
             </View>
         </KeyboardAvoidingView>
     )
