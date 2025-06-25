@@ -1,6 +1,5 @@
 import { View, Text, TextInput, Button, Alert, KeyboardAvoidingView, Platform } from 'react-native';
 import React, { useState } from 'react'
-import { ResourceSavingView } from '@react-navigation/elements';
 
 const SigninScreen = () => {
     const [username, setUsername] = useState('');

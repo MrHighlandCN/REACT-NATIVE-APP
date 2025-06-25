@@ -7,6 +7,8 @@ export default function Index() {
       <Text className="text-5xl text-blue-500 font-bold">Welcome!</Text>
       <Link href="/auth/signin">Đăng nhập</Link>
       <Link href="/scanner/scanner">Quét Qr</Link>
+      <Link href="/qrgenerator/qrgenerator">Tạo mã</Link>
+      <Link href="/orderdisplay/orderdisplay">Xem đơn hàng</Link>
     </View>
   );
 }
