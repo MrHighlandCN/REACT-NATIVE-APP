@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, SafeAreaView } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 
-type DonHang = {
+type order = {
     ma_don_hang: string;
     ngay_dat_hang: string;
     ten_khach_hang: string;
@@ -17,21 +17,21 @@ export default function OrderDisplayScreen() {
     const searchParams = useLocalSearchParams();
     const data = searchParams.data as string;
 
-    const [donHang, setDonHang] = useState<DonHang | null>(null);
+    const [orderData, setorder] = useState<order | null>(null);
 
     useEffect(() => {
         if (typeof data === 'string') {
             try {
-                const parsed: DonHang = JSON.parse(data);
-                setDonHang(parsed);
-                console.log('Parsed donHang:', parsed);
+                const parsed: order = JSON.parse(data);
+                setorder(parsed);
+                console.log('Parsed order:', parsed);
             } catch (error) {
                 console.error('Không thể parse dữ liệu đơn hàng:', error);
             }
         }
     }, [data]);
 
-    if (!donHang) {
+    if (!orderData) {
         return (
             <SafeAreaView style={styles.safeArea}>
                 <View style={styles.container}>
@@ -48,34 +48,34 @@ export default function OrderDisplayScreen() {
 
                 <View style={styles.row}>
                     <Text style={styles.label}>Mã đơn hàng:</Text>
-                    <Text style={styles.value}>{donHang.ma_don_hang}</Text>
+                    <Text style={styles.value}>{orderData.ma_don_hang}</Text>
                 </View>
 
                 <View style={styles.row}>
                     <Text style={styles.label}>Ngày đặt hàng:</Text>
-                    <Text style={styles.value}>{donHang.ngay_dat_hang}</Text>
+                    <Text style={styles.value}>{orderData.ngay_dat_hang}</Text>
                 </View>
 
                 <View style={styles.row}>
                     <Text style={styles.label}>Tên khách hàng:</Text>
-                    <Text style={styles.value}>{donHang.ten_khach_hang}</Text>
+                    <Text style={styles.value}>{orderData.ten_khach_hang}</Text>
                 </View>
 
                 <View style={styles.row}>
                     <Text style={styles.label}>Sản phẩm:</Text>
-                    <Text style={styles.value}>{donHang.san_pham}</Text>
+                    <Text style={styles.value}>{orderData.san_pham}</Text>
                 </View>
 
                 <View style={styles.row}>
                     <Text style={styles.label}>Số lượng:</Text>
-                    <Text style={styles.value}>{donHang.so_luong}</Text>
+                    <Text style={styles.value}>{orderData.so_luong}</Text>
                 </View>
 
                 <View style={styles.row}>
                     <Text style={styles.label}>Đơn giá:</Text>
                     <Text style={styles.value}>
-                        {typeof donHang.don_gia === 'number'
-                            ? donHang.don_gia.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })
+                        {typeof orderData.don_gia === 'number'
+                            ? orderData.don_gia.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })
                             : 'N/A'}
                     </Text>
                 </View>
@@ -83,8 +83,8 @@ export default function OrderDisplayScreen() {
                 <View style={styles.row}>
                     <Text style={styles.label}>Thành tiền:</Text>
                     <Text style={styles.value}>
-                        {typeof donHang.thanh_tien === 'number'
-                            ? donHang.thanh_tien.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })
+                        {typeof orderData.thanh_tien === 'number'
+                            ? orderData.thanh_tien.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })
                             : 'N/A'}
                     </Text>
                 </View>
@@ -94,13 +94,16 @@ export default function OrderDisplayScreen() {
                     <Text
                         style={[
                             styles.value,
-                            donHang.trang_thai === 'Đã giao hàng' ? styles.statusDelivered : styles.statusPending,
+                            orderData.trang_thai === 'Đã giao hàng' ? styles.statusDelivered : styles.statusPending,
                         ]}
                     >
-                        {donHang.trang_thai}
+                        {orderData.trang_thai}
                     </Text>
                 </View>
+
+
             </ScrollView>
+            <View/>
         </SafeAreaView>
     );
 

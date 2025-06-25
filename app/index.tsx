@@ -8,7 +8,6 @@ export default function Index() {
       <Link href="/auth/signin">Đăng nhập</Link>
       <Link href="/scanner/scanner">Quét Qr</Link>
       <Link href="/qrgenerator/qrgenerator">Tạo mã</Link>
-      <Link href="/orderdisplay/orderdisplay">Xem đơn hàng</Link>
     </View>
   );
 }

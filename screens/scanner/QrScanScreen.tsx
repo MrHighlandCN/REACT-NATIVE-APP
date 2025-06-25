@@ -15,9 +15,6 @@ export default function QrScanScreen() {
         if (!scannedRef.current) {
             scannedRef.current = true;
             setIsScanned(true); // trigger UI update
-
-            Alert.alert('Kết quả scan', result.data);
-
             router.push({
                 pathname: '/orderdisplay/orderdisplay',
                 params: {
