@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, SafeAreaView, Alert, Pressable } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
+import * as ImagePicker from 'expo-image-picker';
 
 type order = {
     ma_don_hang: string;
@@ -19,6 +20,20 @@ export default function OrderDisplayScreen() {
 
     const [orderData, setorder] = useState<order | null>(null);
 
+
+    const pickerImageAsync = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ['images'],
+            allowsEditing: true,
+            quality: 1,
+        });
+
+        if(!result.canceled) {
+            console.log(result);
+        } else {
+            Alert.alert("You đi not select any image");
+        }
+    }
     useEffect(() => {
         if (typeof data === 'string') {
             try {
@@ -103,7 +118,13 @@ export default function OrderDisplayScreen() {
 
 
             </ScrollView>
-            <View/>
+
+        
+            <View >
+                <Pressable onPress={pickerImageAsync}>
+                    <Text>Chọn ảnh</Text>
+                </Pressable>
+            </View>
         </SafeAreaView>
     );
 
