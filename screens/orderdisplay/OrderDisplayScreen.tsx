@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, SafeAreaView, Alert, Pressable, Image } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, SafeAreaView, Alert } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 import * as ImagePicker from 'expo-image-picker';
 import ImageSelector from '@/components/ImageSelector';
@@ -16,17 +16,18 @@ type order = {
     trang_thai: string;
 };
 
-export default function OrderDisplayScreen() {
+const OrderDisplayScreen = () => {
+    // Variables and state for get data from scanning page
     const searchParams = useLocalSearchParams();
     const data = searchParams.data as string;
-    // const PlaceholderImage = require('@/assets/images/placeholder.jpg');
-
     const [orderData, setorder] = useState<order | null>(null);
+
+    // States for modal and image picker
     const [selectedImages, setSelectedImages] = useState<(string | undefined)[]>([undefined, undefined, undefined]);
     const [activeIndex, setActiveIndex] = useState<number | null>(null);
     const [modalVisible, setModalVisible] = useState(false);
 
-
+    // Handle Image picker from gallery
     const handlePickImage = async (index: number) => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ['images'],
@@ -42,6 +43,8 @@ export default function OrderDisplayScreen() {
             Alert.alert("Bạn chưa chọn ảnh nào");
         }
     };
+
+    // Handle when take new image
     const handleTakeImage = async (index: number) => {
         try {
             await ImagePicker.requestCameraPermissionsAsync();
@@ -63,18 +66,20 @@ export default function OrderDisplayScreen() {
         }
     };
 
+    // Handle remove Image
     const handleRemoveImage = (index: number) => {
         const newImages = [...selectedImages];
         newImages[index] = undefined;
         setSelectedImages(newImages);
     };
 
+    // When component mounted check data of order
     useEffect(() => {
         if (typeof data === 'string') {
             try {
                 const parsed: order = JSON.parse(data);
                 setorder(parsed);
-                console.log('Parsed order:', parsed);
+                // console.log('Parsed order:', parsed);
             } catch (error) {
                 console.error('Không thể parse dữ liệu đơn hàng:', error);
             }
@@ -167,7 +172,7 @@ export default function OrderDisplayScreen() {
                 ))}
             </View>
 
-            {/* Modal */}
+            {/* Modal for image picker options*/}
             <ImageOptionModal
                 visible={modalVisible}
                 onClose={() => setModalVisible(false)}
@@ -228,3 +233,6 @@ const styles = StyleSheet.create({
         fontWeight: '700',
     },
 });
+
+
+export default OrderDisplayScreen;
