@@ -1,6 +1,6 @@
 import { CameraView, useCameraPermissions, BarcodeScanningResult } from 'expo-camera';
 import { useState, useRef, useCallback } from 'react';
-import { Alert, Button, StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 import { Overlay } from './Overlay';
 import { useRouter, useFocusEffect } from 'expo-router';
 
