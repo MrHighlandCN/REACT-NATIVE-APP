@@ -1,4 +1,4 @@
-import { View, Text, TextInput, Button, Alert, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, Text, TextInput, Button, Alert, KeyboardAvoidingView, Platform, Pressable, ImageSourcePropType, Image } from 'react-native';
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Link } from "expo-router";
@@ -9,6 +9,14 @@ const SigninScreen = () => {
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
 
+    //face id icon
+    const faceIdIcon: ImageSourcePropType = require('@/assets/images/faceid-icon.png');
+
+    // LOGO
+    const logo: ImageSourcePropType = require('@/assets/images/logo.png');
+
+    // User profile place holder
+    const userPlaceHolder: ImageSourcePropType = require('@/assets/images/user-profile-placeholder.png');
     // Handle signing submit
     const handleSignin = async () => {
 
@@ -28,6 +36,9 @@ const SigninScreen = () => {
             method: 'POST',
             body: formData,
         });
+
+
+
         if (response.ok) {
             const data = await response.json();
             Alert.alert('Success', 'Signin successfully !!');
@@ -38,28 +49,40 @@ const SigninScreen = () => {
         }
     }
     return (
-        <SafeAreaView className='flex-1'>
+        <SafeAreaView className='flex-1 flex items-center bg-[#F5F7FA]'>
+
             <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? "padding" : undefined} enabled={true}
-                className="flex-1 justify-center items-center bg-gray">
-                <Text className="text-2xl font-bold mb-4">Sign in</Text>
+                className="mt-[32] justify-center items-center flex gap-5">
+                <View className='h-12 flex justify-center items-center '>
+                    <Image
+                        source={logo}
+                        className="h-12"
+                        resizeMode="contain"
+                    />
+                </View>
+                <View className='mt-2'>
+                    <Image source={userPlaceHolder} className='h-32 w-32' />
+                </View>
                 <TextInput
-                    className="w-64 p-3 border border-black rounded-md text-black-500 rounded mb-3"
+                    className="w-80 p-3 text-black-500 shadow-md bg-white"
                     placeholder="Username"
                     onChangeText={newUsername => setUsername(newUsername)}
                     placeholderTextColor="#808080"
                 />
                 <TextInput
-                    className="w-64 p-3 border border-black rounded-md text-black-500 rounded mb-4"
+                    className="w-80 p-3 text-black-500 shadow-md bg-white"
                     placeholder="Password"
                     onChangeText={newPassword => setPassword(newPassword)}
                     secureTextEntry
                     placeholderTextColor="#808080"
 
                 />
-                <View className="w-64 bg-[#316ff6] rounded-md">
-                    <Button title="Sign in" onPress={handleSignin} color="#ffffff" />
-                </View>
-                <Link href='/auth/signin' className='mt-2 text-cyan-600'>Quên mật khẩu?</Link>
+                <Pressable className='w-80 bg-[#316ff6] p-3 shadow-md justify-center items-center flex mt-5'>
+                    <Text className='text-white font-bold text-lg'>Đăng nhập</Text>
+                </Pressable>
+
+
+                <Link href='/auth/signin' className='text-cyan-600'>Quên mật khẩu?</Link>
             </KeyboardAvoidingView>
         </SafeAreaView>
     )
