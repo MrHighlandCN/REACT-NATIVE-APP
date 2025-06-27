@@ -9,6 +9,7 @@ export default function Index() {
         <Link href="/auth/signin" className="bg-cyan-500 text-white p-2 w-full text-center rounded-md">Đăng nhập</Link>
         <Link href="/scanner/scanner" className="bg-cyan-500 text-white p-2 w-full text-center rounded-md">Quét Qr</Link>
         <Link href="/qrgenerator/qrgenerator" className="bg-cyan-500 text-white p-2 w-full text-center rounded-md">Tạo mã</Link>
+        <Link href="/staffevaluation/staffevalutaion" className="bg-cyan-500 text-white p-2 w-full text-center rounded-md">Đánh giá nhân viên</Link>
 
       </View>
     </View>
